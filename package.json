@@ -3,25 +3,54 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "@date-io/date-fns": "^1.3.13",
+    "@material-ui/core": "4.11.4",
+    "@material-ui/data-grid": "^4.0.0-alpha.37",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/pickers": "^3.2.10",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "clsx": "^1.1.1",
+    "date-fns": "^2.14.0",
+    "i18next": "^19.7.0",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "i18next-http-backend": "^1.0.19",
+    "js-yaml": "^4.1.0",
+    "litmus-ui": "1.4.3",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-i18next": "^11.7.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js,.tsx,.ts",
+    "format": "prettier --write \"src/**/*.+(ts|tsx|js|jsx|json)\" && eslint --fix . --ext .js,.tsx,.ts",
+    "test": "react-scripts test --maxWorkers=2",
+    "test:clean": "react-scripts test --clearCache",
+    "test:watch": "yarn test --watch",
+    "test:coverage": "yarn test --coverage --colors --maxWorkers=2"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
+  "lint-staged": {
+    "src/**/*.+(js|jsx|ts|tsx)": [
+      "yarn run format",
+      "git add"
+    ],
+    "src/**/*.+(json|md)": [
+      "yarn run format"
+    ],
+    "src/**/*.+(css|scss)": [
+      "yarn run format"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "browserslist": {
     "production": [
@@ -34,5 +63,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2"
   }
 }
