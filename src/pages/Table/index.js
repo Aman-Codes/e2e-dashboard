@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
+import { Grid, Typography } from '@material-ui/core';
 import { RadialChart } from 'litmus-ui';
 import data from 'data/podLevelRun';
 
@@ -27,45 +28,53 @@ const columns = [
 ];
 
 const DataTable = () => {
+  const [pageSize, setPageSize] = useState(5);
   return (
     <>
+    <Typography variant="h3" component="h2" align="center">
+      Pod Level E2E Runs
+    </Typography>
+    <Grid container justify = "center">
     <div
       style={{
-        height: '14rem',
+        height: '12rem',
         margin: '0.5rem',
         width: '22rem'
       }}
     >
       <RadialChart
         alignLegendTable="right"
-        heading="total"
+        heading="Total"
         legendTableHeight={100}
         radialData={[
           {
             baseColor: '#00CC9A',
-            label: 'pass',
+            label: 'Pass',
             value: 60
           },
           {
             baseColor: '#5252F6',
-            label: 'pending',
+            label: 'Pending',
             value: 30
           },
           {
             baseColor: '#CA2C2C',
-            label: 'failed',
+            label: 'Failed',
             value: 50
           }
         ]}
         showCenterHeading
       />
-    </div>
+    </div>    
+    </Grid>
+
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={data}
         columns={columns}
-        id="id"
-        pageSize={5}
+        id="podLevelRunTable"
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowsPerPageOptions={[5, 10, 20]}
         pagination
         disableSelectionOnClick

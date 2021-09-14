@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { LitmusThemeProvider } from 'litmus-ui';
 import { Redirect, Route, Router, Switch } from 'react-router-dom';
-import history from "../../history";
+import history from 'utils/history';
 import Scaffold from 'containers/layouts/Scaffold';
 import { SuspenseLoader } from 'components/SuspenseLoader';
 
@@ -15,7 +15,7 @@ const Routes = () => {
       <SuspenseLoader style={{ height: '80vh' }}>
         <Switch>
           <Route exact path="/home" component={HomePage} />
-          <Route exact path="/table" component={DataTable} />
+          <Route exact path="/pod-level-run" component={DataTable} />
           <Redirect exact path="/" to="/home" />
           <Route exact path="/404" component={ErrorPage} />
           <Redirect to="/404" />

@@ -98,7 +98,7 @@ editor:
 ######################################
 
 home:
-  heading: Welcome,
+  heading: Welcome to the Litmus Chaos E2E Dashboard
 
 login:
   heading: Welcome to Chaos Center

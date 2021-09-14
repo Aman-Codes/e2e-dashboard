@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography } from '@material-ui/core';
-import history from '../../history';
+import history from 'utils/history';
 import useStyles from './styles';
 
 const ErrorPage = () => {

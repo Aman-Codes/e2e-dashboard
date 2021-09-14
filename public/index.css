@@ -43,3 +43,7 @@
     transform: rotate(360deg);
   }
 }
+
+.MuiDataGrid-window {
+  overflow-x: hidden !important;
+}
