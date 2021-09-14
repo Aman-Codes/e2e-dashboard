@@ -2,6 +2,7 @@
   "name": "e2e-dashboard",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://aman-codes.github.io/e2e-dashboard",
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "4.11.4",
@@ -30,6 +31,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.tsx,.ts",
     "format": "prettier --write \"src/**/*.+(ts|tsx|js|jsx|json)\" && eslint --fix . --ext .js,.tsx,.ts",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --maxWorkers=2",
     "test:clean": "react-scripts test --clearCache",
     "test:watch": "yarn test --watch",
@@ -74,6 +77,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "gh-pages": "^3.2.3",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2"
