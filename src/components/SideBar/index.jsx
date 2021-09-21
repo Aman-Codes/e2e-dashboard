@@ -1,38 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import { Icon } from 'litmus-ui';
 import history from 'utils/history';
+import CustomisedListItem from "./CustomisedListItem";
+import CustomisedDropdownItem from "./CustomisedDropdownItem";
 import { ReactComponent as CodeIcon } from '../../svg/code.svg';
 import { ReactComponent as CommunityIcon } from '../../svg/community.svg';
 import { ReactComponent as DocsIcon } from '../../svg/docs.svg';
 import useStyles from './styles';
 
-const CustomisedListItem = ({
-  children,
-  handleClick,
-  label,
-  selected,
-}) => {
-  const classes = useStyles();
-  return (
-    <ListItem
-      button
-      selected={selected}
-      onClick={handleClick}
-      className={`${classes.drawerListItem} ${selected ? classes.active : ''}`}
-    >
-      <ListItemIcon className={classes.listIcon}>{children}</ListItemIcon>
-      <ListItemText primary={label} className={classes.listText} />
-    </ListItem>
-  );
-};
-
-const SideBar= () => {
+const SideBar= ({ scheduledData, manualData }) => {
+  const [openScheduled, setOpenScheduled] = useState(true);
+  const [openManual, setOpenManual] = useState(true);
+  const handleScheduled = () => {
+    setOpenScheduled((prevState) => !prevState);
+  }
+  const handleManual = () => {
+    setOpenManual((prevState) => !prevState);
+  }
   const classes = useStyles();
   const pathName = useLocation().pathname.split('/')[1];
   return (
@@ -58,32 +45,56 @@ const SideBar= () => {
         >
           <Icon name="home" />
         </CustomisedListItem>
-        <div data-cy="pod-level-run">
-          <CustomisedListItem
-            key="pod-level-run"
-            handleClick={() => {
-              history.push({
-                pathname: '/pod-level-run'
-              });
-            }}
-            label="Pod Level Runs"
-            selected={pathName === 'pod-level-run'}
+        <div data-cy="scheduled-run">
+          <CustomisedDropdownItem
+            key="scheduled-run"
+            handleClick={handleScheduled}
+            label="Sheduled Runs"
+            litmusIconName="schedule"
+            open={openScheduled}
           >
-            <Icon name="scheduleWorkflow" />
-          </CustomisedListItem>
+            {scheduledData.map((scheduledItem) => (
+              <CustomisedListItem
+                key={scheduledItem.id}
+                handleClick={() => {
+                  history.push({
+                    pathname: `/scheduled-runs/${scheduledItem.name}`
+                  });
+                }}
+                label={scheduledItem.readableName}
+                selected={pathName === scheduledItem.name}
+                className={classes.nested}
+              >
+                <Icon name="schedule"/>
+              </CustomisedListItem>
+            ))}
+          </CustomisedDropdownItem>
         </div>
-        <CustomisedListItem
-          key="manual-run"
-          handleClick={() => {
-            history.push({
-              pathname: '/manual-run'
-            });
-          }}
-          label="Manual Runs"
-          selected={pathName === 'manual-run'}
-        >
-          <Icon name="workflow"/>
-        </CustomisedListItem>
+        <div data-cy="manual-run">
+          <CustomisedDropdownItem
+            key="manual-run"
+            handleClick={handleManual}
+            label="Manual Runs"
+            litmusIconName="userEnable"
+            open={openManual}
+          >
+            {manualData.map((manualItem) => (
+              <CustomisedListItem
+                key={manualItem.id}
+                handleClick={() => {
+                  history.push({
+                    pathname: `/manual-runs/${manualItem.name}`
+                  });
+                }}
+                label={manualItem.readableName}
+                selected={pathName === manualItem.name}
+                className={classes.nested}
+              >
+                <Icon name="workflow"/>
+              </CustomisedListItem>
+            ))}
+          </CustomisedDropdownItem>
+        </div>
         <hr className={classes.quickActions} />
         <CustomisedListItem
           key="litmusDocs"

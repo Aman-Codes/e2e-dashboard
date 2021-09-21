@@ -4,7 +4,7 @@ import Header from '../../../components/Header';
 import SideBar from '../../../components/SideBar';
 import useStyles from './styles';
 
-const Scaffold = ({ children }) => {
+const Scaffold = ({ children, scheduledData, manualData }) => {
   const classes = useStyles();
 
   return (
@@ -14,7 +14,7 @@ const Scaffold = ({ children }) => {
         <Header />
       </header>
       <aside className={classes.sidebar}>
-        <SideBar />
+        <SideBar scheduledData={scheduledData} manualData={manualData}/>
       </aside>
       <main className={classes.content}>{children}</main>
     </div>

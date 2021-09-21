@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import ProfileDropdown from './ProfileDropDown';
-import ProjectDropdown from './ProjectDropDown';
+// import ProfileDropdown from './ProfileDropDown';
+// import ProjectDropdown from './ProjectDropDown';
 import useStyles from './styles';
 
 const Header = () => {
@@ -23,10 +23,10 @@ const Header = () => {
               E2E Dashboard
             </Typography>
           </Link>
-          <div className={classes.details}>
+          {/* <div className={classes.details}>
             <ProjectDropdown />
             <ProfileDropdown />
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
     </div>

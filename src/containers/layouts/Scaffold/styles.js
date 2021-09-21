@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sidebar: {
     gridArea: 'sidebar',
+    overflowY: 'auto',
   },
 }));
 

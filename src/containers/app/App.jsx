@@ -1,35 +1,29 @@
-import React, { lazy } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LitmusThemeProvider } from 'litmus-ui';
-import { Redirect, Route, Router, Switch } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import history from 'utils/history';
-import Scaffold from 'containers/layouts/Scaffold';
-import { SuspenseLoader } from 'components/SuspenseLoader';
+import { sendGetRequest } from 'api/sendRequest';
+import { endpoints } from 'constants/endpoints';
+import { filterWorkflow } from 'api/filterWorkflow';
+import Routes from './Routes';
 
-const ErrorPage = lazy(() => import('pages/ErrorPage'));
-const HomePage = lazy(() => import('pages/HomePage'));
-const DataTable = lazy(() => import('pages/Table'));
+const App = () => {
+  const [scheduledData, setScheduledData] = useState([]);
+  const [manualData, setManualData] = useState([]);
+  useEffect(() => {
+    sendGetRequest(endpoints.allWorkflows())
+    .then((data) => {
+      console.log("data is", data);
+      const {scheduled, manual} = filterWorkflow(data);
+      setScheduledData(scheduled);
+      setManualData(manual);
+    });
+  }, [])
 
-const Routes = () => {
-  return (
-    <Scaffold>
-      <SuspenseLoader style={{ height: '80vh' }}>
-        <Switch>
-          <Route exact path="/home" component={HomePage} />
-          <Route exact path="/pod-level-run" component={DataTable} />
-          <Redirect exact path="/" to="/home" />
-          <Route exact path="/404" component={ErrorPage} />
-          <Redirect to="/404" />
-        </Switch>
-      </SuspenseLoader>
-    </Scaffold>
-  );
-};
-
-function App() {
   return (
     <LitmusThemeProvider>
       <Router history={history}>
-        <Routes />
+        <Routes scheduledData={scheduledData} manualData={manualData}/>
       </Router>
     </LitmusThemeProvider>
   );

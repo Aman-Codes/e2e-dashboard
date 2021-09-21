@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   drawerListItem: {
-    height: '3.1875rem',
+    height: 'auto',
     transition: '0.8s',
     '&:hover': {
       backgroundColor: theme.palette.disabledBackground,
@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     marginLeft: theme.spacing(1.25),
     fontSize: '0.75rem',
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
   },
 }));
 
