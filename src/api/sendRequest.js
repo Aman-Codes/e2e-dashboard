@@ -8,10 +8,10 @@ export const sendGetRequest = (url) => {
     headers: {
       Accept: 'application/vnd.github.v3+json'
     },
-    auth: {
-      username: process.env.REACT_APP_GITHUB_USERNAME,
-      password: process.env.REACT_APP_GITHUB_PAT
-    }
+    // auth: {
+    //   username: process.env.REACT_APP_GITHUB_USERNAME,
+    //   password: process.env.REACT_APP_GITHUB_PAT
+    // }
   })
   .then((response) => {
     console.log("response inside sendRequest is", response.data);

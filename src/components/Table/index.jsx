@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Typography } from '@material-ui/core';
-import { RadialChart } from 'litmus-ui';
+import { RadialChart, Drawer } from 'litmus-ui';
 import data from 'data/podLevelRun';
 import { readableNameConverter } from 'shared/helper';
 import useStyles, { CustomTooltip } from './styles';
 
 const DataTable = ({ tableName, match:{ params: { pipelineName } } }) => {
   const [pageSize, setPageSize] = useState(5);
+  const [displayDrawer, setDisplayDrawer] = useState(true);
   const classes = useStyles();
   const columns = [
     { 
@@ -15,9 +16,22 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } } }) => {
       headerName: 'Pipeline Id',
       flex: 1,
       renderCell: (params) => (
-        <a href={`https://github.com/litmuschaos/litmus-e2e/actions/runs/${params.value}`} target="_blank" rel="noopener noreferrer">
+        <>
+        <a href="www.github.com"  target="_blank" rel="noopener noreferrer">
           {params.value}
         </a>
+        <Drawer
+          anchor="right"
+          icon="close"
+          // onButtonClose={}
+          onClose={setDisplayDrawer(false)}
+          variant=""
+          open={displayDrawer}
+        >
+          This is a Drawer
+        </Drawer>
+        </>
+
       ),
     },
     {

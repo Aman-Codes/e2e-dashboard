@@ -53,7 +53,7 @@ const SideBar= ({ scheduledData, manualData }) => {
             litmusIconName="schedule"
             open={openScheduled}
           >
-            {scheduledData.map((scheduledItem) => (
+            {scheduledData && scheduledData.map((scheduledItem) => (
               <CustomisedListItem
                 key={scheduledItem.id}
                 handleClick={() => {
@@ -78,7 +78,7 @@ const SideBar= ({ scheduledData, manualData }) => {
             litmusIconName="userEnable"
             open={openManual}
           >
-            {manualData.map((manualItem) => (
+            {manualData && manualData.map((manualItem) => (
               <CustomisedListItem
                 key={manualItem.id}
                 handleClick={() => {
