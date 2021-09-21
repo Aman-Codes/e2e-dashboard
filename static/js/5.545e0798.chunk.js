@@ -1,2 +1,0 @@
-(this["webpackJsonpe2e-dashboard"]=this["webpackJsonpe2e-dashboard"]||[]).push([[5],{689:function(e,a,t){"use strict";t.r(a);var n=t(0),r=t.n(n),s=t(192),o=t(656),h=t(596),u=Object(h.a)((function(){return{userName:{fontSize:"2.5rem"}}}));a.default=function(){var e=u(),a=Object(o.a)().t;return r.a.createElement(r.a.Fragment,null,r.a.createElement(s.a,{variant:"h3",className:e.userName},a("home.heading")),r.a.createElement("p",null,"This will be the home page of e2e dashboard. Go to Pod Level Runs page from the side bar."))}}}]);
-//# sourceMappingURL=5.545e0798.chunk.js.map
