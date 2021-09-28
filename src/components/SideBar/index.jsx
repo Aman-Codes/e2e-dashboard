@@ -12,14 +12,24 @@ import { ReactComponent as DocsIcon } from '../../svg/docs.svg';
 import useStyles from './styles';
 
 const SideBar= ({ scheduledData, manualData }) => {
-  const [openScheduled, setOpenScheduled] = useState(true);
-  const [openManual, setOpenManual] = useState(true);
-  const handleScheduled = () => {
-    setOpenScheduled((prevState) => !prevState);
+  // const [openScheduled, setOpenScheduled] = useState(true);
+  // const [openManual, setOpenManual] = useState(true);
+  const [openDropdown, setOpenDropdown] = useState("none");
+  const handleDropdown = (value) => {
+    console.log("value is", value);
+    setOpenDropdown((prevValue) => {
+      if(prevValue === value) {
+        return "none";
+      }
+      return value;
+    });
   }
-  const handleManual = () => {
-    setOpenManual((prevState) => !prevState);
-  }
+  // const handleScheduled = () => {
+  //   setOpenScheduled((prevState) => !prevState);
+  // }
+  // const handleManual = () => {
+  //   setOpenManual((prevState) => !prevState);
+  // }
   const classes = useStyles();
   const pathName = useLocation().pathname.split('/')[1];
   return (
@@ -47,11 +57,12 @@ const SideBar= ({ scheduledData, manualData }) => {
         </CustomisedListItem>
         <div data-cy="scheduled-run">
           <CustomisedDropdownItem
-            key="scheduled-run"
-            handleClick={handleScheduled}
+            key="scheduled-run"            
             label="Sheduled Runs"
             litmusIconName="schedule"
-            open={openScheduled}
+            name="scheduled-run"
+            open={openDropdown === "scheduled-run"}
+            handleClick={() => handleDropdown("scheduled-run")}
           >
             {scheduledData && scheduledData.map((scheduledItem) => (
               <CustomisedListItem
@@ -72,11 +83,12 @@ const SideBar= ({ scheduledData, manualData }) => {
         </div>
         <div data-cy="manual-run">
           <CustomisedDropdownItem
-            key="manual-run"
-            handleClick={handleManual}
+            key="manual-run"            
             label="Manual Runs"
             litmusIconName="userEnable"
-            open={openManual}
+            name="manual-run"
+            open={openDropdown === "manual-run"}
+            handleClick={() => handleDropdown("manual-run")}
           >
             {manualData && manualData.map((manualItem) => (
               <CustomisedListItem

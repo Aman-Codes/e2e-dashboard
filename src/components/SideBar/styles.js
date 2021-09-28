@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   listText: {
     '& span': {
       fontWeight: 500,
-      fontSize: '1rem',
+      fontSize: '0.8rem',
     },
   },
   drawerList: {
