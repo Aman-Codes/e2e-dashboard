@@ -47,3 +47,18 @@
 .MuiDataGrid-window {
   overflow-x: hidden !important;
 }
+
+.MuiTimelineItem-missingOppositeContent:before {
+  content: none !important;
+}
+
+span.MuiTimelineDot-root{
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.MuiTimelineContent-root {
+  padding: 8px 16px !important;
+}
