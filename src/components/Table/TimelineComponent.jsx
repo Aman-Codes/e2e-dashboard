@@ -98,7 +98,6 @@ const TimelineItemComponent = ({ step, connectorLine=true }) => {
     <TimelineItem>
       <TimelineSeparator>
         <TimelineDot>
-          {step.conclusion}
           <Icon name="experimentPending"  color={colours.running}/>
         </TimelineDot>
         {connectorLine && <TimelineConnector />}
