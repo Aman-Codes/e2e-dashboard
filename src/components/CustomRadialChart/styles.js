@@ -20,7 +20,6 @@ const useStyles = makeStyles(() => ({
       height: '0.5rem'
     }
   },
-
 }));
 
 export default useStyles;

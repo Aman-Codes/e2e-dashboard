@@ -3,14 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { OutlinedPills } from 'litmus-ui';
+import { OutlinedPills, Icon } from 'litmus-ui';
+import CustomRadialChart from 'components/CustomRadialChart';
 import TimelineComponent from './TimelineComponent';
 import jobs from './data';
+import { jobStepResult } from './helper';
 
-function TabPanel(props) {
+const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -28,7 +30,7 @@ function TabPanel(props) {
   );
 }
 
-function a11yProps(index) {
+const a11yProps = (index) => {
   return {
     id: `vertical-tab-${index}`,
     'aria-controls': `vertical-tabpanel-${index}`,
@@ -63,13 +65,40 @@ const useStyles = makeStyles((theme) => ({
 export default function VerticalTabs() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [result, setResult] = useState(jobStepResult(jobs["jobs"][0]["steps"]) || {
+    pending: 0,
+    pass: 0,
+    fail: 0,
+  });
 
   const handleChange = (_event, newValue) => {
     setValue(newValue);
+    console.log(jobStepResult(jobs.jobs[newValue]["steps"]));
+    setResult(jobStepResult(jobs.jobs[newValue]["steps"]));
   };
 
   return (
-    <div className={classes.root}>
+    <>
+      <hr/>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={7}>
+          <p>
+            Pipeline Id: <a href="https://github.com" target="_blank" rel="noopener noreferrer">12345 <Icon name="externalLink"/></a><br/>
+            <Icon name="clock"/> &nbsp;Time Duration: 1h:10m:5s <br/>
+          </p>
+        </Grid>
+        <Grid item xs={5}>
+          <p style={{ paddingRight: '1rem' }}>
+            { result && <CustomRadialChart 
+              pass={result.pass}
+              fail={result.fail}
+              pending={result.pending}
+            />}
+          </p>
+        </Grid>
+      </Grid>
+      <hr/>
+      <div className={classes.root}>
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -149,19 +178,8 @@ export default function VerticalTabs() {
           <TimelineComponent job={job} />
         </TabPanel>
       ))}
-
-      {/* <TabPanel value={value} index={1}>
-        <TimelineComponent/>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <TimelineComponent/> 
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <TimelineComponent/>
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        <TimelineComponent/>
-      </TabPanel> */}
     </div>
+    <hr/>
+    </>
   );
 }
