@@ -65,18 +65,17 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } } }) => {
       It contains the test cases (GO BDDs) for component-level generic experiments
     </Typography>
     <br/>
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
+    <DataGrid
         rows={data}
         columns={columns}
         id={tableName || pipelineName}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowsPerPageOptions={[5, 10, 20]}
+        autoHeight={true}
         pagination
         disableSelectionOnClick
       />
-    </div>
     <Drawer
         anchor="right"
         icon="close"
