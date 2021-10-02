@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import { 
-  Typography, 
-  Grid,
-} from '@material-ui/core';
-import { RadialChart, Drawer, TextButton, Icon } from 'litmus-ui';
+import { Typography } from '@material-ui/core';
+import { Drawer, TextButton } from 'litmus-ui';
+import CustomRadialChart from 'components/CustomRadialChart';
 import data from 'data/podLevelRun';
 import { readableNameConverter } from 'shared/helper';
-import useStyles, { CustomTooltip } from './styles';
+import useStyles from './styles';
 import VerticalTabs from './VerticalTabs';
 
 const DataTable = ({ tableName, match:{ params: { pipelineName } } }) => {
@@ -50,37 +48,11 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } } }) => {
       headerName: 'Status',
       flex: 1,
       renderCell: (params) => (
-        <CustomTooltip 
-          title={<p>Pass: {params.value.pass}<br/>Fail: {params.value.fail}<br/>Pending: {params.value.pending}</p>} 
-          placement="right" 
-          arrow
-        >
-        <div className={classes.smallRadialChart} >         
-          <RadialChart
-            arcWidth={4}
-            showLegend={false}
-            circleExpandOnHover={3}
-            radialData={[
-              {
-                baseColor: '#00CC9A',
-                label: 'Pass',
-                value: params.value.pass
-              },
-              {
-                baseColor: '#5252F6',
-                label: 'Pending',
-                value: params.value.pending
-              },
-              {
-                baseColor: '#CA2C2C',
-                label: 'Failed',
-                value: params.value.fail
-              }
-            ]}
-            showCenterHeading={false}
-          />      
-        </div>
-      </CustomTooltip> 
+        <CustomRadialChart 
+          pass={params.value.pass}
+          fail={params.value.fail}
+          pending={params.value.pending}
+        />
       ),
     },
   ];
@@ -89,6 +61,10 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } } }) => {
     <Typography variant="h3" component="h2" align="center">
       {tableName || readableNameConverter(pipelineName)}
     </Typography>
+    <Typography variant="subtitle1" component="h3" align="center">
+      It contains the test cases (GO BDDs) for component-level generic experiments
+    </Typography>
+    <br/>
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={data}
@@ -110,7 +86,7 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } } }) => {
         open={displayDrawer}
       >
         <div className={classes.drawerContainer}>
-          <hr/>
+          {/* <hr/>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={7}>
               <p>
@@ -120,45 +96,17 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } } }) => {
             </Grid>
             <Grid item xs={5}>
               <p style={{ paddingRight: '1rem' }}>
-                <CustomTooltip 
-                  title={<p>Pass: 2<br/>Fail: 1<br/>Pending: 2</p>} 
-                  placement="right" 
-                  arrow
-                >
-                  <div className={classes.smallRadialChart} >         
-                    <RadialChart
-                      arcWidth={4}
-                      showLegend={false}
-                      circleExpandOnHover={3}
-                      radialData={[
-                        {
-                          baseColor: '#00CC9A',
-                          label: 'Pass',
-                          value: 2
-                        },
-                        {
-                          baseColor: '#5252F6',
-                          label: 'Pending',
-                          value: 2
-                        },
-                        {
-                          baseColor: '#CA2C2C',
-                          label: 'Failed',
-                          value: 1
-                        }
-                      ]}
-                      showCenterHeading={false}
-                    />      
-                  </div>
-                </CustomTooltip>
+                <CustomRadialChart 
+                  pass={2}
+                  fail={1}
+                  pending={2}
+                />
               </p>
             </Grid>
           </Grid>
-          <hr/>
-          <p>
+          <hr/> */}
           <VerticalTabs/>
-          </p>
-          <hr/>
+          {/* <hr/> */}
         </div>
       </Drawer>
     </>
