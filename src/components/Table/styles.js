@@ -13,6 +13,9 @@ const useStyles = makeStyles(() => ({
     borderRadius: '1rem',
     padding: '0.5rem 1rem 1.5rem 1rem',
     fontWeight: '500'
+  },
+  muted: {
+    color: '#6c757d'
   }
 }));
 
