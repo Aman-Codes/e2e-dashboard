@@ -8,6 +8,8 @@ import {
   TimelineDot 
 } from '@material-ui/lab';
 import { Icon } from 'litmus-ui';
+import { timeDifference } from 'shared/helper';
+import useStyles from './styles';
 
 const colours = {
   success: '#09825d',
@@ -17,6 +19,7 @@ const colours = {
 }
 
 const TimelineItemComponent = ({ step, connectorLine=true }) => {
+  const classes = useStyles();
   /*
     Possible status values are:
     completed
@@ -50,7 +53,7 @@ const TimelineItemComponent = ({ step, connectorLine=true }) => {
             </TimelineDot>
             {connectorLine && <TimelineConnector />}
           </TimelineSeparator>
-          <TimelineContent>{step.name}</TimelineContent>
+          <TimelineContent>{step.name} <span className={classes.muted}>({timeDifference(step?.started_at, step?.completed_at)})</span></TimelineContent>
         </TimelineItem>      
         );
       case "failure":
@@ -62,7 +65,7 @@ const TimelineItemComponent = ({ step, connectorLine=true }) => {
               </TimelineDot>
               {connectorLine && <TimelineConnector />}
             </TimelineSeparator>
-            <TimelineContent>{step.name}</TimelineContent>
+            <TimelineContent>{step.name} <span className={classes.muted}>({timeDifference(step?.started_at, step?.completed_at)})</span></TimelineContent>
           </TimelineItem>      
         );
       case "skipped":
@@ -74,7 +77,7 @@ const TimelineItemComponent = ({ step, connectorLine=true }) => {
               </TimelineDot>
               {connectorLine && <TimelineConnector />}
             </TimelineSeparator>
-            <TimelineContent>{step.name}</TimelineContent>
+            <TimelineContent>{step.name} <span className={classes.muted}>({timeDifference(step?.started_at, step?.completed_at)})</span></TimelineContent>
           </TimelineItem> 
         )
       default:
@@ -86,7 +89,7 @@ const TimelineItemComponent = ({ step, connectorLine=true }) => {
               </TimelineDot>
               {connectorLine && <TimelineConnector />}
             </TimelineSeparator>
-            <TimelineContent>{step.name}</TimelineContent>
+            <TimelineContent>{step.name} <span className={classes.muted}>({timeDifference(step?.started_at, step?.completed_at)})</span></TimelineContent>
           </TimelineItem> 
         )
     }
@@ -100,7 +103,7 @@ const TimelineItemComponent = ({ step, connectorLine=true }) => {
         </TimelineDot>
         {connectorLine && <TimelineConnector />}
       </TimelineSeparator>
-      <TimelineContent>{step.name}</TimelineContent>
+      <TimelineContent>{step.name} <span className={classes.muted}>({timeDifference(step?.started_at, step?.completed_at)})</span></TimelineContent>
     </TimelineItem>
   )
 };
