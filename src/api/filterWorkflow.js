@@ -6,15 +6,14 @@ export const filterWorkflow = (responseData) => {
     const scheduledData = [];
     const manualData = [];
     responseData.workflows.forEach((element) => {
-      const matches = element.name.match(/^Scheduled.*$/);
-      if (matches != null) {
+      if (element.name.match(/^Scheduled.*Pipeline$/) != null) {
         scheduledData.push({
           id: element.id,
           name: element.name,
           readableName: readableNameConverter(element.name)
         })
       }
-      else {
+      else if (element.name.match(/.*Pipeline$/) != null){
         manualData.push({
           id: element.id,
           name: element.name,
