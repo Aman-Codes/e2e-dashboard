@@ -16,7 +16,7 @@ const Routes = ({ scheduledData, manualData }) => {
           <Route exact path="/manual-runs" component={DataTable} />
           <Route exact path="/manual-runs/:pipelineName" component={DataTable} />
           <Route exact path="/scheduled-runs" component={DataTable} />
-          <Route exact path="/scheduled-runs/:pipelineName" component={DataTable} />
+          <Route exact path="/scheduled-runs/:pipelineName" render={(props) => <DataTable {...props} displayVersion={false} />} />
           <Route exact path="/404" component={ErrorPage} />
           <Redirect exact path="/" to="/home" />          
           <Redirect to="/404" />
