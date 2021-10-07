@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -88,13 +89,18 @@ export default function VerticalTabs() {
           </p>
         </Grid>
         <Grid item xs={5}>
-          <p style={{ paddingRight: '1rem' }}>
-            { result && <CustomRadialChart 
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            { result && <>
+              <CustomRadialChart 
               pass={result.pass}
               fail={result.fail}
               pending={result.pending}
-            />}
-          </p>
+            />
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ color: 'black', height: 'auto', marginTop: 'auto', marginBottom: 'auto'}}>
+            <GitHubIcon style={{ height: 'auto', fontSize: '2.1rem'}} /> 
+            </a>                      
+            </>}
+          </div>
         </Grid>
       </Grid>
       <hr/>

@@ -117,7 +117,7 @@ const SideBar= ({ scheduledData, manualData }) => {
         >
           <DocsIcon />
         </CustomisedListItem>
-        <CustomisedListItem
+        {/* <CustomisedListItem
           key="litmusAPIDocs"
           handleClick={() => {
             window.open(
@@ -127,8 +127,8 @@ const SideBar= ({ scheduledData, manualData }) => {
           label="Litmus API Docs"
         >
           <CodeIcon />
-        </CustomisedListItem>
-        <CustomisedListItem
+        </CustomisedListItem> */}
+        {/* <CustomisedListItem
           key="Slack"
           handleClick={() => {
             window.open(
@@ -138,7 +138,7 @@ const SideBar= ({ scheduledData, manualData }) => {
           label="Slack"
         >
           <CommunityIcon />
-        </CustomisedListItem>
+        </CustomisedListItem> */}
       </List>
     </Drawer>
   );

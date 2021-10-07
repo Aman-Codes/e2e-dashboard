@@ -8,7 +8,7 @@ import { readableNameConverter } from 'shared/helper';
 import useStyles from './styles';
 import VerticalTabs from './VerticalTabs';
 
-const DataTable = ({ tableName, match:{ params: { pipelineName } }, displayVersion=true }) => {
+const DataTable = ({ tableName, match:{ params: { pipelineName } = {}} = {}, displayVersion=true }) => {
   const [pageSize, setPageSize] = useState(10);
   const [displayDrawer, setDisplayDrawer] = useState(false);
   const classes = useStyles();
@@ -47,7 +47,7 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } }, displayVersi
         <a href={`https://github.com/litmuschaos/litmus-e2e/commit/${params.value.id}`}>
           {`#${params.value.id.substring(1,7)}`}
         </a> &nbsp;
-        By: {params.value.author}
+        Repository: {params.value.repository}
         </>
       ),
     },
@@ -71,10 +71,10 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } }, displayVersi
   ];
   return (
     <>
-    <Typography variant="h3" component="h2" align="center">
-      {tableName || readableNameConverter(pipelineName)}
+    <Typography variant="h3" component="h2" align="center" className={classes.topMargin}>
+      {readableNameConverter(tableName) || readableNameConverter(pipelineName)}
     </Typography>
-    <Typography variant="subtitle1" component="h3" align="center">
+    <Typography variant="subtitle1" component="h3" align="center" className={classes.topMargin}>
       It contains the test cases (GO BDDs) for component-level generic experiments
     </Typography>
     <br/>

@@ -16,6 +16,7 @@
     "i18next-http-backend": "^1.0.19",
     "js-yaml": "^4.1.0",
     "litmus-ui": "1.6.0",
+    "query-string": "^7.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-i18next": "^11.7.2",

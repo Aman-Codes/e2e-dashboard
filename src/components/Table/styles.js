@@ -16,6 +16,9 @@ const useStyles = makeStyles(() => ({
   },
   muted: {
     color: '#6c757d'
+  },
+  topMargin: {
+    marginTop: '1rem'
   }
 }));
 

@@ -20,6 +20,18 @@ const useStyles = makeStyles(() => ({
       height: '0.5rem'
     }
   },
+  largeRadialChart: {
+    height: '7rem',
+    margin: '0.5rem 0',
+    width: '7rem',
+    '& p': {
+      fontSize: '2rem',
+      maxWidth: '8rem',
+      minWidth: '1rem',
+      lineHeight: '1rem',
+      height: '0.5rem'
+    }
+  },
 }));
 
 export default useStyles;

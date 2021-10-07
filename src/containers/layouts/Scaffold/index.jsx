@@ -1,7 +1,7 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from '../../../components/Header';
-import SideBar from '../../../components/SideBar';
+// import SideBar from '../../../components/SideBar';
 import useStyles from './styles';
 
 const Scaffold = ({ children, scheduledData, manualData }) => {
@@ -13,9 +13,9 @@ const Scaffold = ({ children, scheduledData, manualData }) => {
       <header className={classes.header}>
         <Header />
       </header>
-      <aside className={classes.sidebar}>
+      {/* <aside className={classes.sidebar}>
         <SideBar scheduledData={scheduledData} manualData={manualData}/>
-      </aside>
+      </aside> */}
       <main className={classes.content}>{children}</main>
     </div>
   );

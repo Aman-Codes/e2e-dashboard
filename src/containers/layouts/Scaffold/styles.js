@@ -2,11 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'fixed',
-    overflow: 'hidden',
     height: '100vh',
     width: '100%',
-    display: 'grid',
     gridTemplateColumns: '20.5em auto',
     gridTemplateRows: '6.5em auto',
     gridTemplateAreas: '"header header" "sidebar content"',

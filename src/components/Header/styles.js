@@ -125,6 +125,25 @@ const useStyles = makeStyles((theme) => ({
   profileButtons: {
     marginTop: theme.spacing(3.75),
   },
+  homeIcon: {
+    '& svg': {
+      marginBottom: '0.3rem'
+    }
+  },
+  rightSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    '& div': {
+      marginRight: '0.5rem'
+    },
+    '& a': {
+      textDecoration: 'none'
+    }
+  },
+  slackIcon: {
+    height: 'max-content',
+    paddingTop: '0.4rem'
+  }
 }));
 
 export default useStyles;

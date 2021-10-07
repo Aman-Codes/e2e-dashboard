@@ -2,7 +2,7 @@ import React from 'react';
 import { RadialChart } from 'litmus-ui';
 import useStyles, { CustomTooltip } from './styles';
 
-const CustomRadialChart = ({pass=0, fail=0, pending=0}) => {
+const CustomRadialChart = ({pass=0, fail=0, pending=0, size="small"}) => {
   const classes = useStyles();
   return (
     <CustomTooltip 
@@ -10,7 +10,7 @@ const CustomRadialChart = ({pass=0, fail=0, pending=0}) => {
       placement="right" 
       arrow
     >
-      <div className={classes.smallRadialChart} >         
+      <div className={size==="small" ? classes.smallRadialChart: classes.largeRadialChart} >         
         <RadialChart
           arcWidth={4}
           showLegend={false}
