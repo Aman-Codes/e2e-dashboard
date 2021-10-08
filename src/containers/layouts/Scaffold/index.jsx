@@ -4,7 +4,7 @@ import Header from '../../../components/Header';
 // import SideBar from '../../../components/SideBar';
 import useStyles from './styles';
 
-const Scaffold = ({ children, scheduledData, manualData }) => {
+const Scaffold = ({ children }) => {
   const classes = useStyles();
 
   return (

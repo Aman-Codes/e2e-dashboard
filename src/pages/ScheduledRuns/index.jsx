@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 import { Typography } from 'litmus-ui';
 import Center from 'containers/layouts/Center';
 import Table from 'components/Table';
+import { getLocalStorage } from 'shared/storageHelper';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -17,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ScheduledRuns = ({ scheduledData, defaultPipeline='' }) => {
+const ScheduledRuns = ({ defaultPipeline='' }) => {
   const classes = useStyles();
   const [pipelineName, setPipelineName] = useState(defaultPipeline);
-
+  const scheduledData = getLocalStorage("scheduledRuns");
   const handleChange = (event) => {
     setPipelineName(event.target.value);
   };

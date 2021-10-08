@@ -3,12 +3,12 @@ import { DataGrid } from '@material-ui/data-grid';
 import { Typography } from '@material-ui/core';
 import { Drawer, TextButton } from 'litmus-ui';
 import CustomRadialChart from 'components/CustomRadialChart';
-import data from 'data/podLevelRun';
+// import data from 'data/podLevelRun';
 import { readableNameConverter } from 'shared/helper';
 import useStyles from './styles';
 import VerticalTabs from './VerticalTabs';
 
-const DataTable = ({ tableName, match:{ params: { pipelineName } = {}} = {}, displayVersion=true }) => {
+const DataTable = ({ data, tableName, match:{ params: { pipelineName } = {}} = {}, displayVersion=true }) => {
   const [pageSize, setPageSize] = useState(10);
   const [displayDrawer, setDisplayDrawer] = useState(false);
   const classes = useStyles();
@@ -34,12 +34,12 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } = {}} = {}, dis
       ),
     },
     {
-      field: 'executionTime',
-      headerName: 'Execution Time',
+      field: 'created_at',
+      headerName: 'Created Time',
       flex: 1,
     },
     {
-      field: 'commit',
+      field: 'head_commit',
       headerName: 'Description',
       flex: 1,
       renderCell: (params) => (
@@ -47,7 +47,7 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } = {}} = {}, dis
         <a href={`https://github.com/litmuschaos/litmus-e2e/commit/${params.value.id}`}>
           {`#${params.value.id.substring(1,7)}`}
         </a> &nbsp;
-        Repository: {params.value.repository}
+        Repository: litmus-go
         </>
       ),
     },
@@ -55,6 +55,7 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } = {}} = {}, dis
       field: 'version',
       headerName: 'Version',
       flex: 1,
+      renderCell: (params) => ("ci"),
     }]: []),
     { 
       field: 'status',
@@ -62,9 +63,9 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } = {}} = {}, dis
       flex: 1,
       renderCell: (params) => (
         <CustomRadialChart 
-          pass={params.value.pass}
-          fail={params.value.fail}
-          pending={params.value.pending}
+          pass={4}
+          fail={2}
+          pending={1}
         />
       ),
     },
@@ -78,7 +79,7 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } = {}} = {}, dis
       It contains the test cases (GO BDDs) for component-level generic experiments
     </Typography>
     <br/>
-    <DataGrid
+    {data && <DataGrid
       rows={data}
       columns={columns}
       id={tableName || pipelineName}
@@ -88,7 +89,7 @@ const DataTable = ({ tableName, match:{ params: { pipelineName } = {}} = {}, dis
       autoHeight={true}
       pagination
       disableSelectionOnClick
-    />
+    />}
     <Drawer
         anchor="right"
         icon="close"

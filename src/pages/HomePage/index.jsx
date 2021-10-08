@@ -2,12 +2,14 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import CustomCard from 'components/CustomCard';
+import { getLocalStorage } from 'shared/storageHelper';
 import useStyles from './styles';
 
-const HomePage = ({ scheduledData, manualData}) => {
+const HomePage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-
+  const scheduledData = getLocalStorage("scheduledRuns");
+  const manualData = getLocalStorage("manualRuns");
   return (
     <>
       <Typography variant="h3" className={classes.userName}>

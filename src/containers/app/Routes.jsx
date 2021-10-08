@@ -9,15 +9,15 @@ const DataTable = lazy(() => import('components/Table'));
 const ScheduledRuns = lazy(() => import('pages/ScheduledRuns'));
 const ManualRuns = lazy(() => import('pages/ManualRuns'));
 
-const Routes = ({ scheduledData, manualData }) => {
+const Routes = () => {
   return (
-    <Scaffold scheduledData={scheduledData} manualData={manualData}>
+    <Scaffold>
       <SuspenseLoader style={{ height: '80vh' }}>
         <Switch>
-          <Route exact path="/home" render={(props) => <HomePage {...props} scheduledData={scheduledData} manualData={manualData} />} />
-          <Route exact path="/manual-runs" render={(props) => <ManualRuns {...props} scheduledData={scheduledData} manualData={manualData} />} />
+          <Route exact path="/home" render={(props) => <HomePage {...props} />} />
+          <Route exact path="/manual-runs" render={(props) => <ManualRuns {...props} />} />
           <Route exact path="/manual-runs/:pipelineName" component={DataTable} />
-          <Route exact path="/scheduled-runs" render={(props) => <ScheduledRuns {...props} scheduledData={scheduledData} manualData={manualData} />} />
+          <Route exact path="/scheduled-runs" render={(props) => <ScheduledRuns {...props} />} />
           <Route exact path="/scheduled-runs/:pipelineName" render={(props) => <DataTable {...props} displayVersion={false} />} />
           <Route exact path="/404" component={ErrorPage} />
           <Redirect exact path="/" to="/home" />
