@@ -22,32 +22,35 @@ const Header = () => {
             to={{
               pathname: '/home',
             }}
-            className={classes.homeLink}
+            className={classes.nounderline}
           >
             <Typography className={classes.chaosText} variant="body1">
               <Icon name="home" size="xl" color="white" className={classes.homeIcon}/> E2E Dashboard
             </Typography>
           </Link>
-          <Link
-            to={{
-              pathname: '/scheduled-runs',
-            }}
-            className={classes.homeLink}
-          >
-            <Typography variant="body1">
-              Scheduled Run
-            </Typography>
-          </Link>
-          <Link
-            to={{
-              pathname: '/manual-runs',
-            }}
-            className={classes.homeLink}
-          >
-            <Typography variant="body1">
-              Manual Run
-            </Typography>
-          </Link>
+
+          <div className={classes.middleSection}>
+            <Link
+              to={{
+                pathname: '/scheduled-runs',
+              }}
+              className={classes.nounderline}
+            >
+              <Typography variant="body1">
+                Scheduled Run
+              </Typography>
+            </Link>
+            <Link
+              to={{
+                pathname: '/manual-runs',
+              }}
+              className={classes.nounderline}
+            >
+              <Typography variant="body1">
+                Manual Run
+              </Typography>
+            </Link>
+          </div>
 
           <div className={classes.rightSection}>
             <div className={classes.slackIcon}>              

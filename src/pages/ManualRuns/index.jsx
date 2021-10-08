@@ -55,10 +55,10 @@ const ManualRuns = () => {
             native
             value={selectedPipeline.id}
             onChange={handleChange}
-            label="pipelineId"
+            label="pipelineName"
             inputProps={{
-              name: 'pipelineId',
-              id: 'outlined-pipelineId',
+              name: 'pipelineName',
+              id: 'outlined-pipelineName',
             }}
           >
             <option aria-label="None" value="" />

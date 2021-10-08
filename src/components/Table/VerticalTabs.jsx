@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import { OutlinedPills, Icon } from 'litmus-ui';
 import CustomRadialChart from 'components/CustomRadialChart';
 import TimelineComponent from './TimelineComponent';
-import jobs from './data';
+// import jobs from './data';
 import { jobStepResult } from './helper';
 
 const TabPanel = (props) => {
@@ -29,6 +29,30 @@ const TabPanel = (props) => {
       )}
     </div>
   );
+}
+
+const conclusionMap = {
+  action_required: "pending",
+  cancelled: "failed",
+  failure: "failed",
+  neutral: "succeeded",
+  skipped: "succeeded",
+  stale: "succeeded",
+  startup_failure: "failed",
+  success: "succeeded",
+  timed_out: "failed",
+};
+
+const colorMap = {
+  action_required: "pending",
+  cancelled: "failed",
+  failure: "failed",
+  neutral: "succeeded",
+  skipped: "succeeded",
+  stale: "succeeded",
+  startup_failure: "failed",
+  success: "succeeded",
+  timed_out: "failed",
 }
 
 const a11yProps = (index) => {
@@ -63,10 +87,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function VerticalTabs() {
+export default function VerticalTabs({ data }) {
+  console.log("data inside VerticalTabs is", data);
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [result, setResult] = useState(jobStepResult(jobs["jobs"][0]["steps"]) || {
+  const [result, setResult] = useState(jobStepResult(data["jobs"][0]["steps"]) || {
     pending: 0,
     pass: 0,
     fail: 0,
@@ -74,8 +99,8 @@ export default function VerticalTabs() {
 
   const handleChange = (_event, newValue) => {
     setValue(newValue);
-    console.log(jobStepResult(jobs.jobs[newValue]["steps"]));
-    setResult(jobStepResult(jobs.jobs[newValue]["steps"]));
+    console.log(jobStepResult(data.jobs[newValue]["steps"]));
+    setResult(jobStepResult(data.jobs[newValue]["steps"]));
   };
 
   return (
@@ -113,7 +138,22 @@ export default function VerticalTabs() {
         aria-label="Vertical tabs example"
         className={classes.tabs}
       >
-        <Tab 
+        {data && data.jobs && data.jobs.map((job, index) => 
+          <Tab 
+          label={
+            <OutlinedPills
+              color="primary"
+              label={job.name}
+              size="medium"
+              variant={conclusionMap[job.conclusion]}
+              className={classes.outlinedPills}
+            />
+          }
+          {...a11yProps(index)}
+          className={classes.tab}
+        />
+        )}
+        {/* <Tab 
           label={
             <OutlinedPills
               color="primary"
@@ -177,9 +217,9 @@ export default function VerticalTabs() {
           }
           {...a11yProps(4)} 
           className={classes.tab}
-          />
+          /> */}
       </Tabs>
-      {jobs && jobs.jobs.map((job, index) => (
+      {data && data.jobs.map((job, index) => (
         <TabPanel value={value} index={index}>
           <TimelineComponent job={job} />
         </TabPanel>

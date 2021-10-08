@@ -10,7 +10,7 @@
   success
   timed_out
 */ 
-const conclusionMap = {
+export const conclusionMap = {
   action_required: "pending",
   cancelled: "fail",
   failure: "fail",

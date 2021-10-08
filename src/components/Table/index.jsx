@@ -2,22 +2,34 @@ import React, { useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Typography } from '@material-ui/core';
 import { Drawer, TextButton } from 'litmus-ui';
+import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import CustomRadialChart from 'components/CustomRadialChart';
-// import data from 'data/podLevelRun';
 import { readableNameConverter } from 'shared/helper';
+import endpoints from 'constants/endpoints';
+import { sendGetRequest } from 'api/sendRequest';
 import useStyles from './styles';
 import VerticalTabs from './VerticalTabs';
 
 const DataTable = ({ data, tableName, match:{ params: { pipelineName } = {}} = {}, displayVersion=true }) => {
   const [pageSize, setPageSize] = useState(10);
+  const [pipelineDetails, setPipelineDetails] = useState(null);
   const [displayDrawer, setDisplayDrawer] = useState(false);
   const classes = useStyles();
   const toggleDrawer = (open) => (event) => {
+    console.log("Inside toggleDrawer open is", open);
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setDisplayDrawer(open);
   };
+  const fetchPipelineDetails = (pipelineId) => {
+    sendGetRequest(endpoints.pipelineJobs(pipelineId))
+    .then((response) => {
+      console.log("response is", response);
+      setPipelineDetails(response);
+      setDisplayDrawer(true);
+    });
+  }
   const columns = [
     { 
       field: 'id',
@@ -27,7 +39,7 @@ const DataTable = ({ data, tableName, match:{ params: { pipelineName } = {}} = {
         <TextButton 
           size="small" 
           variant="highlight"
-          onClick={toggleDrawer(true)}  
+          onClick={() => fetchPipelineDetails(params.value)}  
         >
           {params.value}
         </TextButton>
@@ -37,6 +49,9 @@ const DataTable = ({ data, tableName, match:{ params: { pipelineName } = {}} = {
       field: 'created_at',
       headerName: 'Created Time',
       flex: 1,
+      renderCell: (params) => (
+        `${formatDistanceToNowStrict(new Date(params.value))} ago`
+      )
     },
     {
       field: 'head_commit',
@@ -99,7 +114,7 @@ const DataTable = ({ data, tableName, match:{ params: { pipelineName } = {}} = {
         open={displayDrawer}
       >
         <div className={classes.drawerContainer}>
-          <VerticalTabs/>
+          <VerticalTabs data={pipelineDetails} />
         </div>
       </Drawer>
     </>

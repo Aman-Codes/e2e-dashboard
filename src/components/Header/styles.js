@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   // Logo
-  homeLink: {
+  nounderline: {
     textDecoration: 'none',
   },
   chaosText: {
@@ -143,6 +143,15 @@ const useStyles = makeStyles((theme) => ({
   slackIcon: {
     height: 'max-content',
     paddingTop: '0.4rem'
+  },
+  middleSection: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexGrow: 1,
+    marginLeft: '3rem',
+    '& a': {
+      margin: '0 1.5rem'
+    }
   }
 }));
 
