@@ -69,7 +69,7 @@ const ScheduledRuns = () => {
       </Center>
       {selectedPipeline.id && pipelineData && <>
         <Center><CustomRadialChart pass={20} fail={5} pending={2} size="large" /></Center>        
-        <Table tableName={selectedPipeline.readableName} data={pipelineData} />
+        <Table tableName={selectedPipeline.readableName} data={pipelineData} displayVersion={false} />
       </>}
     </>
   );

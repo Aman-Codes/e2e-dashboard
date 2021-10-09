@@ -26,7 +26,7 @@ const DataTable = ({ data, tableName, match:{ params: { pipelineName } = {}} = {
     sendGetRequest(endpoints.pipelineJobs(pipelineId))
     .then((response) => {
       console.log("response is", response);
-      setPipelineDetails(response);
+      setPipelineDetails({ pipelineId: pipelineId, jobs: response });
       setDisplayDrawer(true);
     });
   }
@@ -114,7 +114,7 @@ const DataTable = ({ data, tableName, match:{ params: { pipelineName } = {}} = {
         open={displayDrawer}
       >
         <div className={classes.drawerContainer}>
-          <VerticalTabs data={pipelineDetails} />
+          <VerticalTabs data={pipelineDetails?.jobs}  pipelineId={pipelineDetails?.pipelineId} />
         </div>
       </Drawer>
     </>

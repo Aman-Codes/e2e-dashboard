@@ -43,18 +43,6 @@ const conclusionMap = {
   timed_out: "failed",
 };
 
-const colorMap = {
-  action_required: "pending",
-  cancelled: "failed",
-  failure: "failed",
-  neutral: "succeeded",
-  skipped: "succeeded",
-  stale: "succeeded",
-  startup_failure: "failed",
-  success: "succeeded",
-  timed_out: "failed",
-}
-
 const a11yProps = (index) => {
   return {
     id: `vertical-tab-${index}`,
@@ -87,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function VerticalTabs({ data }) {
+export default function VerticalTabs({ data, pipelineId }) {
   console.log("data inside VerticalTabs is", data);
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -98,6 +86,7 @@ export default function VerticalTabs({ data }) {
   });
 
   const handleChange = (_event, newValue) => {
+    console.log("newValue inside handleChange is", newValue);
     setValue(newValue);
     console.log(jobStepResult(data.jobs[newValue]["steps"]));
     setResult(jobStepResult(data.jobs[newValue]["steps"]));
@@ -109,7 +98,7 @@ export default function VerticalTabs({ data }) {
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={7}>
           <p>
-            Pipeline Id: <a href="https://github.com" target="_blank" rel="noopener noreferrer">12345 <Icon name="externalLink"/></a><br/>
+            Pipeline Id: <a href={`https://github.com/litmuschaos/litmus-e2e/actions/runs/${pipelineId}`} target="_blank" rel="noopener noreferrer">{pipelineId}<Icon name="externalLink"/></a><br/>
             <Icon name="clock"/> &nbsp;Time Duration: 1h:10m:5s <br/>
           </p>
         </Grid>
@@ -121,7 +110,7 @@ export default function VerticalTabs({ data }) {
               fail={result.fail}
               pending={result.pending}
             />
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ color: 'black', height: 'auto', marginTop: 'auto', marginBottom: 'auto'}}>
+            <a href={data.jobs[value].html_url} target="_blank" rel="noopener noreferrer" style={{ color: 'black', height: 'auto', marginTop: 'auto', marginBottom: 'auto'}}>
             <GitHubIcon style={{ height: 'auto', fontSize: '2.1rem'}} /> 
             </a>                      
             </>}
