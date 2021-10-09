@@ -8,15 +8,13 @@ export const filterWorkflow = (responseData) => {
     responseData.workflows.forEach((element) => {
       if (element.name.match(/^Scheduled.*Pipeline$/) != null) {
         scheduledData.push({
-          id: element.id,
-          name: element.name,
+          ...element,
           readableName: readableNameConverter(element.name)
         })
       }
       else if (element.name.match(/.*Pipeline$/) != null){
         manualData.push({
-          id: element.id,
-          name: element.name,
+          ...element,
           readableName: readableNameConverter(element.name)
         })
       }    

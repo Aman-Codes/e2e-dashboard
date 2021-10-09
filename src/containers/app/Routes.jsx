@@ -5,7 +5,6 @@ import { SuspenseLoader } from 'components/SuspenseLoader';
 
 const ErrorPage = lazy(() => import('pages/ErrorPage'));
 const HomePage = lazy(() => import('pages/HomePage'));
-const DataTable = lazy(() => import('components/Table'));
 const ScheduledRuns = lazy(() => import('pages/ScheduledRuns'));
 const ManualRuns = lazy(() => import('pages/ManualRuns'));
 
@@ -16,9 +15,9 @@ const Routes = () => {
         <Switch>
           <Route exact path="/home" render={(props) => <HomePage {...props} />} />
           <Route exact path="/manual-runs" render={(props) => <ManualRuns {...props} />} />
-          <Route exact path="/manual-runs/:pipelineName" component={DataTable} />
+          {/* <Route exact path="/manual-runs/:pipelineName" render={(props) => <ManualRuns {...props} />}/> */}
           <Route exact path="/scheduled-runs" render={(props) => <ScheduledRuns {...props} />} />
-          <Route exact path="/scheduled-runs/:pipelineName" render={(props) => <DataTable {...props} displayVersion={false} />} />
+          {/* <Route exact path="/scheduled-runs/:pipelineName" render={(props) => <ScheduledRuns {...props} />} /> */}
           <Route exact path="/404" component={ErrorPage} />
           <Redirect exact path="/" to="/home" />
           <Redirect to="/404" />

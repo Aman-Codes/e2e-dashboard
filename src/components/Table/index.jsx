@@ -60,7 +60,7 @@ const DataTable = ({ data, tableName, match:{ params: { pipelineName } = {}} = {
       renderCell: (params) => (
         <>
         <a href={`https://github.com/litmuschaos/litmus-e2e/commit/${params.value.id}`}>
-          {`#${params.value.id.substring(1,7)}`}
+          {`#${params.value.id.substring(0,6)}`}
         </a> &nbsp;
         Repository: litmus-go
         </>

@@ -9,8 +9,8 @@ import Box from '@material-ui/core/Box';
 import { OutlinedPills, Icon } from 'litmus-ui';
 import CustomRadialChart from 'components/CustomRadialChart';
 import TimelineComponent from './TimelineComponent';
-// import jobs from './data';
 import { jobStepResult } from './helper';
+import { getTotalPipelineTime } from 'shared/helper';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -99,7 +99,7 @@ export default function VerticalTabs({ data, pipelineId }) {
         <Grid item xs={7}>
           <p>
             Pipeline Id: <a href={`https://github.com/litmuschaos/litmus-e2e/actions/runs/${pipelineId}`} target="_blank" rel="noopener noreferrer">{pipelineId}<Icon name="externalLink"/></a><br/>
-            <Icon name="clock"/> &nbsp;Time Duration: 1h:10m:5s <br/>
+            <Icon name="clock" size="sm" /> {getTotalPipelineTime(data?.jobs)} <br/>
           </p>
         </Grid>
         <Grid item xs={5}>

@@ -8,3 +8,12 @@ export const timeDifference = (startTime, endTime) => {
     new Date(endTime)
   )
 }
+
+export const getTotalPipelineTime = (pipelines) => {
+  let totalTime = 0;
+  pipelines.forEach((pipeline) => {
+    totalTime += (new Date(pipeline?.completed_at)).getTime() - (new Date(pipeline?.started_at)).getTime();
+  })
+  const now = new Date();
+  return timeDifference(now, new Date(now.getTime() + totalTime));
+}

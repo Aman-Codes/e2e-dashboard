@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ScheduledRuns = () => {
+const ScheduledRuns = ({ location }) => {
   const classes = useStyles();
   const [selectedPipeline, setSelectedPipeline] = useState({
-    id: '',
-    readableName: ''
+    id: location?.state?.id || '',
+    readableName: location?.state?.readableName || ''
   });
   const [pipelineData, setPipelineData] = useState(null);
   const manualData = getLocalStorage("scheduledRuns");
