@@ -20,7 +20,7 @@ const Header = () => {
         <Toolbar disableGutters className={classes.toolBar}>
           <Link
             to={{
-              pathname: '/home',
+              pathname: '/',
             }}
             className={classes.nounderline}
           >

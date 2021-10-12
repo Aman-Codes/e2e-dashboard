@@ -188,7 +188,7 @@ const ProjectDropdownItems = () => {
                   key="home"
                   handleClick={() => {
                     history.push({
-                      pathname: `/home`,
+                      pathname: `/`,
                       search: `?projectID=${project.projectDetails.id}&projectRole=${project.currentUserProjectRole}`,
                     });
                   }}

@@ -13,13 +13,12 @@ const Routes = () => {
     <Scaffold>
       <SuspenseLoader style={{ height: '80vh' }}>
         <Switch>
-          <Route exact path="/home" render={(props) => <HomePage {...props} />} />
+          <Route exact path="/" render={(props) => <HomePage {...props} />} />
           <Route exact path="/manual-runs" render={(props) => <ManualRuns {...props} />} />
           {/* <Route exact path="/manual-runs/:pipelineName" render={(props) => <ManualRuns {...props} />}/> */}
           <Route exact path="/scheduled-runs" render={(props) => <ScheduledRuns {...props} />} />
           {/* <Route exact path="/scheduled-runs/:pipelineName" render={(props) => <ScheduledRuns {...props} />} /> */}
           <Route exact path="/404" component={ErrorPage} />
-          <Redirect exact path="/" to="/home" />
           <Redirect to="/404" />
         </Switch>
       </SuspenseLoader>
