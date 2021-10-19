@@ -22,14 +22,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ManualRuns = ({ location }) => {
+const NightlyRuns = ({ location }) => {
   const classes = useStyles();
   const [selectedPipeline, setSelectedPipeline] = useState({
     id: location?.state?.id || "",
     readableName: location?.state?.readableName || "",
   });
   const [pipelineData, setPipelineData] = useState(null);
-  const manualData = getLocalStorage("manualRuns");
+  const manualData = getLocalStorage("nightlyRuns");
   const handleChange = (event) => {
     setSelectedPipeline({
       id: event.target.value,
@@ -49,7 +49,7 @@ const ManualRuns = ({ location }) => {
   return (
     <>
       <Center>
-        <Typography>{t("pipelinePage.selectManual")}:</Typography>
+        <Typography>{t("pipelinePage.selectNightly")}:</Typography>
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel htmlFor="outlined-pipelineName" className={classes.label}>
             {t("pipelinePage.pipelineName")}
@@ -82,6 +82,7 @@ const ManualRuns = ({ location }) => {
           <Table
             tableName={selectedPipeline.readableName}
             data={pipelineData}
+            displayVersion={false}
           />
         </>
       )}
@@ -89,4 +90,4 @@ const ManualRuns = ({ location }) => {
   );
 };
 
-export default ManualRuns;
+export default NightlyRuns;

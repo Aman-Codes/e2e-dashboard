@@ -1,8 +1,8 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, Typography } from '@material-ui/core';
-import history from 'utils/history';
-import useStyles from './styles';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Button, Typography } from "@material-ui/core";
+import history from "utils/history";
+import useStyles from "./styles";
 
 const ErrorPage = () => {
   const classes = useStyles();
@@ -18,19 +18,19 @@ const ErrorPage = () => {
             <div className={classes.headerDiv}>
               <Typography className={classes.mainText}>
                 <strong>
-                  {t('error.whoops')}
+                  {t("error.whoops")}
                   <br />
-                  {t('error.pageUnavailable')}
+                  {t("error.pageUnavailable")}
                 </strong>
               </Typography>
               <Typography className={classes.descText}>
-                {t('error.pageDoesNotExist')}
+                {t("error.pageDoesNotExist")}
               </Typography>
               <Button
                 onClick={() => history.goBack()}
                 className={classes.backBtn}
               >
-                {t('error.goBack')}
+                {t("error.goBack")}
               </Button>
             </div>
             <div className={classes.imgDiv}>
