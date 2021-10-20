@@ -16,12 +16,14 @@ const App = () => {
       !getLocalStorage("nightlyRuns") ||
       !pipelineData
     ) {
-      sendGetRequest(endpoints.allWorkflows()).then((data) => {
-        const { nightly, manual } = filterWorkflow(data);
-        setLocalStorage("nightlyRuns", nightly);
-        setLocalStorage("manualRuns", manual);
-        setPipelineData({ nightly, manual });
-      });
+      sendGetRequest(endpoints.allWorkflows())
+        .then((data) => {
+          const { nightly, manual } = filterWorkflow(data);
+          setLocalStorage("nightlyRuns", nightly);
+          setLocalStorage("manualRuns", manual);
+          setPipelineData({ nightly, manual });
+        })
+        .catch(() => {});
     }
   }, [pipelineData]);
 

@@ -8,8 +8,8 @@ import CustomRadialChart from "components/CustomRadialChart";
 import { readableNameConverter } from "shared/helper";
 import endpoints from "constants/endpoints";
 import sendGetRequest from "api/sendRequest";
+import { descriptionMapping } from "shared/job";
 import VerticalTabs from "./VerticalTabs";
-import { descriptionMapping } from "./helper";
 import useStyles from "./styles";
 
 const DataTable = ({
@@ -90,7 +90,13 @@ const DataTable = ({
       field: "status",
       headerName: "Status",
       flex: 1,
-      renderCell: () => <CustomRadialChart pass={4} fail={2} pending={1} />,
+      renderCell: (params) => (
+        <CustomRadialChart
+          pass={params.value?.pass || 0}
+          fail={params.value?.fail || 0}
+          pending={params.value?.pending || 0}
+        />
+      ),
     },
   ];
   useEffect(() => {

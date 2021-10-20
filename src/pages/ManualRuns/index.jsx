@@ -11,6 +11,7 @@ import CustomRadialChart from "components/CustomRadialChart";
 import { getLocalStorage } from "shared/storageHelper";
 import endpoints from "constants/endpoints";
 import sendGetRequest from "api/sendRequest";
+import { jobStepResult } from "shared/job";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -38,9 +39,23 @@ const ManualRuns = ({ location }) => {
   };
   useEffect(() => {
     if (selectedPipeline.id) {
+      let pipelines;
       sendGetRequest(endpoints.pipelinesByWorkflow(selectedPipeline.id)).then(
         (data) => {
-          setPipelineData(data?.workflow_runs);
+          pipelines = data?.workflow_runs;
+          const promiseList = [];
+          pipelines?.forEach((pipeline, index) => {
+            promiseList.push(
+              sendGetRequest(endpoints.pipelineJobs(pipeline?.id)).then(
+                (response) => {
+                  pipelines[index].status = jobStepResult(response?.jobs);
+                }
+              )
+            );
+          });
+          Promise.all(promiseList).then(() => {
+            setPipelineData(pipelines);
+          });
         }
       );
     }

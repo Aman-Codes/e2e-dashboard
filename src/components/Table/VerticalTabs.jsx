@@ -10,8 +10,8 @@ import Box from "@material-ui/core/Box";
 import { OutlinedPills, Icon } from "litmus-ui";
 import CustomRadialChart from "components/CustomRadialChart";
 import { getTotalPipelineTime } from "shared/helper";
+import { jobStepResult } from "shared/job";
 import TimelineComponent from "./TimelineComponent";
-import { jobStepResult } from "./helper";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;

@@ -9,6 +9,7 @@ import Center from "containers/layouts/Center";
 import Table from "components/Table";
 import CustomRadialChart from "components/CustomRadialChart";
 import { getLocalStorage } from "shared/storageHelper";
+import { jobStepResult } from "shared/job";
 import endpoints from "constants/endpoints";
 import sendGetRequest from "api/sendRequest";
 
@@ -38,9 +39,23 @@ const NightlyRuns = ({ location }) => {
   };
   useEffect(() => {
     if (selectedPipeline.id) {
+      let pipelines;
       sendGetRequest(endpoints.pipelinesByWorkflow(selectedPipeline.id)).then(
         (data) => {
-          setPipelineData(data?.workflow_runs);
+          pipelines = data?.workflow_runs;
+          const promiseList = [];
+          pipelines?.forEach((pipeline, index) => {
+            promiseList.push(
+              sendGetRequest(endpoints.pipelineJobs(pipeline?.id)).then(
+                (response) => {
+                  pipelines[index].status = jobStepResult(response?.jobs);
+                }
+              )
+            );
+          });
+          Promise.all(promiseList).then(() => {
+            setPipelineData(pipelines);
+          });
         }
       );
     }
