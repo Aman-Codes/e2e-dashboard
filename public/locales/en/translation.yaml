@@ -15,9 +15,10 @@ radialChart:
 
 header:
   e2eDashboard: E2E Dashboard
-  nightlyRun:  Nightly Run
-  manualRun: Manual Run
+  nightlyRuns:  Nightly Runs
+  manualRuns: Manual Runs
   githubRepo: litmuschaos/litmus
+  home: Home
 
 table:
   repository: Repository

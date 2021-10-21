@@ -60,9 +60,8 @@ const useStyles = makeStyles((theme) => ({
   },
   middleSection: {
     display: "flex",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     flexGrow: 1,
-    marginLeft: "3rem",
     "& a": {
       margin: "0 1.5rem",
     },
