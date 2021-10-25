@@ -8,7 +8,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import PlayCircleFilled from "@material-ui/icons/PlayCircleFilled";
 import GitHub from "@material-ui/icons/GitHub";
+import Chip from "@material-ui/core/Chip";
+import { Icon } from "litmus-ui";
 import { Link } from "react-router-dom";
+import CustomRadialChart from "components/CustomRadialChart";
+import { timeDifferenceStrict } from "shared/helper";
 
 const useStyles = makeStyles({
   root: {
@@ -20,15 +24,19 @@ const useStyles = makeStyles({
     fontSize: 14,
     color: "#0000008a",
   },
-  pos: {
-    marginBottom: 12,
-    color: "#0000008a",
+  flex: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  timeline: {
+    margin: "auto 0",
   },
 });
 
 const CustomCard = ({ data, category }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const d = new Date();
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
@@ -36,14 +44,27 @@ const CustomCard = ({ data, category }) => {
           <PlayCircleFilled style={{ marginBottom: "-0.3rem" }} />
           {data?.readableName}
         </Typography>
-        <img src={data?.badge_url} alt="status of pipeline" />
+        <Icon name="scheduleWorkflow" size="lg" color="black" /> {d.toString()}
+        <br /> <br />
+        <Chip label="litmuschaos/litmus-e2e" color="primary" />
+        <div className={classes.flex}>
+          <CustomRadialChart pass={5} fail={1} pending={1} />
+          <Typography className={classes.timeline}>
+            {`${timeDifferenceStrict(
+              data?.workflow_runs?.updated_at,
+              new Date()
+            )} ago`}
+          </Typography>
+        </div>
       </CardContent>
       <CardActions>
+        <PlayCircleFilled />
         <Link
           to={{
             pathname: `/${category}`,
             state: { id: data?.id, readableName: data?.readableName },
           }}
+          style={{ marginLeft: 0 }}
         >
           <Button size="small">{t("card.pipelineDetails")}</Button>
         </Link>

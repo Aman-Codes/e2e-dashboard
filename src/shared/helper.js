@@ -1,4 +1,4 @@
-import { formatDuration, intervalToDuration } from "date-fns";
+import { formatDuration, intervalToDuration, formatDistance } from "date-fns";
 
 export const readableNameConverter = (name) => name?.replace(/-/g, " ");
 
@@ -8,6 +8,10 @@ export const timeDifference = (startTime, endTime) => {
     end: new Date(endTime),
   });
   return formatDuration(durations) || "0 second";
+};
+
+export const timeDifferenceStrict = (startTime, endTime) => {
+  return formatDistance(new Date(startTime), new Date(endTime)) || "0 second";
 };
 
 export const getTotalPipelineTime = (pipelines) => {

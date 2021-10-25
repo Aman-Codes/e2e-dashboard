@@ -31,6 +31,12 @@ const Header = () => {
             <Link
               to={{
                 pathname: "/",
+                state: {
+                  pipelinesToDisplay: {
+                    manual: true,
+                    nightly: true,
+                  },
+                },
               }}
               className={classes.nounderline}
             >
@@ -41,7 +47,13 @@ const Header = () => {
             </Link>
             <Link
               to={{
-                pathname: "/nightly-runs",
+                pathname: "/",
+                state: {
+                  pipelinesToDisplay: {
+                    manual: false,
+                    nightly: true,
+                  },
+                },
               }}
               className={classes.nounderline}
             >
@@ -52,7 +64,13 @@ const Header = () => {
             </Link>
             <Link
               to={{
-                pathname: "/manual-runs",
+                pathname: "/",
+                state: {
+                  pipelinesToDisplay: {
+                    manual: true,
+                    nightly: false,
+                  },
+                },
               }}
               className={classes.nounderline}
             >

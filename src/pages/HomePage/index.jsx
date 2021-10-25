@@ -1,43 +1,51 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Typography } from "@material-ui/core";
 import CustomCard from "components/CustomCard";
-import { getLocalStorage } from "shared/storageHelper";
-import Center from "containers/layouts/Center";
+import filterPipelines from "api/filterPipelines";
 import useStyles from "./styles";
 
-const HomePage = () => {
+const HomePage = ({ location }) => {
+  const [pipelines, setPipelines] = useState({
+    manual: {},
+    nightly: {},
+  });
+  const [pipelinesToDisplay, setPipelinesToDisplay] = useState({
+    manual: location?.state?.pipelinesToDisplay?.manual ?? true,
+    nightly: location?.state?.pipelinesToDisplay?.nightly ?? true,
+  });
   const classes = useStyles();
-  const nightlyData = getLocalStorage("nightlyRuns");
-  const manualData = getLocalStorage("manualRuns");
   const { t } = useTranslation();
+  useEffect(() => {
+    setPipelines(filterPipelines());
+  }, []);
+  useEffect(() => {
+    setPipelinesToDisplay({
+      manual: location?.state?.pipelinesToDisplay?.manual ?? true,
+      nightly: location?.state?.pipelinesToDisplay?.nightly ?? true,
+    });
+    setPipelines(filterPipelines());
+  }, [JSON.stringify(location?.state?.pipelinesToDisplay)]);
   return (
     <>
-      <Center>
-        <Typography variant="h3" className={classes.userName}>
-          {t("homepage.description")}
-        </Typography>
-      </Center>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
-        {nightlyData &&
-          nightlyData.map((nightlyItem) => (
+      <div className={classes.flex}>
+        {pipelinesToDisplay.nightly &&
+          pipelines &&
+          pipelines.nightly &&
+          Object.keys(pipelines.nightly).map((key) => (
             <CustomCard
-              data={nightlyItem}
-              key={nightlyItem.id}
+              data={pipelines.nightly[key]}
+              key={pipelines.nightly[key]?.id}
               category="nightly-runs"
             />
           ))}
-        {manualData &&
-          manualData.map((manualItem) => (
+        {pipelinesToDisplay.manual &&
+          pipelines &&
+          pipelines.manual &&
+          Object.keys(pipelines.manual).map((key) => (
             <CustomCard
-              data={manualItem}
-              key={manualItem.id}
+              data={pipelines.manual[key]}
+              key={pipelines.manual[key]?.id}
               category="manual-runs"
             />
           ))}

@@ -6,7 +6,7 @@ error:
 
 # components
 card:
-  pipelineDetails: Pipeline Details
+  pipelineDetails: Go to details
 
 radialChart:
   pass: Pass
@@ -26,6 +26,8 @@ table:
 
 homepage:
   description: Welcome to the Litmus Chaos E2E Dashboard
+  nightlyPipelines: Recently Opened Nightly Runs Pipelines
+  manualPipelines: Recently Opened Manual Runs Pipelines
 
 pipelinePage:
   selectManual: Select Manual Pipeline
