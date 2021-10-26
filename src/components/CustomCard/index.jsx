@@ -11,7 +11,6 @@ import GitHub from "@material-ui/icons/GitHub";
 import Chip from "@material-ui/core/Chip";
 import { Icon } from "litmus-ui";
 import { Link } from "react-router-dom";
-import CustomRadialChart from "components/CustomRadialChart";
 import { timeDifferenceStrict } from "shared/helper";
 
 const useStyles = makeStyles({
@@ -27,6 +26,7 @@ const useStyles = makeStyles({
   flex: {
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   timeline: {
     margin: "auto 0",
@@ -37,12 +37,14 @@ const useStyles = makeStyles({
   p0: {
     padding: "0",
   },
+  img: {
+    height: "1.2rem",
+  },
 });
 
 const CustomCard = ({ data }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const d = new Date();
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent className={classes.p0}>
@@ -50,17 +52,20 @@ const CustomCard = ({ data }) => {
           <PlayCircleFilled style={{ marginBottom: "-0.3rem" }} />
           {data?.readableName}
         </Typography>
-        <Icon name="scheduleWorkflow" size="lg" color="black" /> {d.toString()}
+        <Icon name="scheduleWorkflow" size="lg" color="black" />{" "}
+        {`${timeDifferenceStrict(
+          data?.workflow_runs?.updated_at,
+          new Date()
+        )} ago`}
         <br /> <br />
         <Chip label="litmuschaos/litmus-e2e" color="primary" />
+        <br /> <br />
         <div className={classes.flex}>
-          <CustomRadialChart pass={5} fail={1} pending={1} />
-          <Typography className={classes.timeline}>
-            {`${timeDifferenceStrict(
-              data?.workflow_runs?.updated_at,
-              new Date()
-            )} ago`}
-          </Typography>
+          <img
+            src={data?.badge_url}
+            className={classes.img}
+            alt="status of pipeline"
+          />
         </div>
       </CardContent>
       <CardActions>
@@ -77,7 +82,7 @@ const CustomCard = ({ data }) => {
           </Button>
         </Link>
         <a
-          href={data.html_url}
+          href={data?.html_url}
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: "black", marginLeft: "auto" }}

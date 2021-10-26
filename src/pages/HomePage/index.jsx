@@ -5,6 +5,7 @@ import useStyles from "./styles";
 
 const HomePage = ({ location }) => {
   const [pipelines, setPipelines] = useState({
+    all: {},
     manual: {},
     nightly: {},
   });
@@ -26,6 +27,9 @@ const HomePage = ({ location }) => {
   return (
     <>
       <div className={classes.flex}>
+        {pipelinesToDisplay.nightly && pipelinesToDisplay.manual && (
+          <CustomCard data={pipelines.all} key="all" />
+        )}
         {pipelinesToDisplay.nightly &&
           pipelines &&
           pipelines.nightly &&
