@@ -31,6 +31,12 @@ const useStyles = makeStyles({
   timeline: {
     margin: "auto 0",
   },
+  button: {
+    fontSize: "1rem",
+  },
+  p0: {
+    padding: "0",
+  },
 });
 
 const CustomCard = ({ data }) => {
@@ -39,7 +45,7 @@ const CustomCard = ({ data }) => {
   const d = new Date();
   return (
     <Card className={classes.root} variant="outlined">
-      <CardContent>
+      <CardContent className={classes.p0}>
         <Typography className={classes.title} gutterBottom>
           <PlayCircleFilled style={{ marginBottom: "-0.3rem" }} />
           {data?.readableName}
@@ -66,7 +72,9 @@ const CustomCard = ({ data }) => {
           }}
           style={{ marginLeft: 0 }}
         >
-          <Button size="small">{t("card.pipelineDetails")}</Button>
+          <Button size="small" className={classes.button}>
+            {t("card.pipelineDetails")}
+          </Button>
         </Link>
         <a
           href={data.html_url}

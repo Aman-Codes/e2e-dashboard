@@ -85,7 +85,7 @@ const DataTable = ({
       : []),
     {
       field: "status",
-      headerName: "Status",
+      headerName: "Pipeline Job Status",
       flex: 1,
       renderCell: (params) => (
         <CustomRadialChart
