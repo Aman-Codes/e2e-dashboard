@@ -30,6 +30,5 @@ homepage:
   manualPipelines: Recently Opened Manual Runs Pipelines
 
 pipelinePage:
-  selectManual: Select Manual Pipeline
   pipelineName: Pipeline Name
-  selectNightly: Select Nightly Pipeline
+  selectPipeline: Select Pipeline

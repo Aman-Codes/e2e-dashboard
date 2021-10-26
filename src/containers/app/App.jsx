@@ -25,7 +25,7 @@ const App = () => {
         })
         .catch(() => {});
     }
-  }, [pipelineData]);
+  }, []);
 
   return (
     <LitmusThemeProvider>

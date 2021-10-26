@@ -30,7 +30,6 @@ const filterPipelines = () => {
       }
     );
   });
-  console.log("pipelineMap", pipelineMap);
   return pipelineMap;
 };
 

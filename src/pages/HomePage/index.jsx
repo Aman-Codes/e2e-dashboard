@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import CustomCard from "components/CustomCard";
 import filterPipelines from "api/filterPipelines";
 import useStyles from "./styles";
@@ -15,7 +13,6 @@ const HomePage = ({ location }) => {
     nightly: location?.state?.pipelinesToDisplay?.nightly ?? true,
   });
   const classes = useStyles();
-  const { t } = useTranslation();
   useEffect(() => {
     setPipelines(filterPipelines());
   }, []);
@@ -36,7 +33,6 @@ const HomePage = ({ location }) => {
             <CustomCard
               data={pipelines.nightly[key]}
               key={pipelines.nightly[key]?.id}
-              category="nightly-runs"
             />
           ))}
         {pipelinesToDisplay.manual &&
@@ -46,7 +42,6 @@ const HomePage = ({ location }) => {
             <CustomCard
               data={pipelines.manual[key]}
               key={pipelines.manual[key]?.id}
-              category="manual-runs"
             />
           ))}
       </div>

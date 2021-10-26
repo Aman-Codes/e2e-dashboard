@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { DataGrid } from "@material-ui/data-grid";
-import { Typography } from "@material-ui/core";
 import { Drawer, TextButton } from "litmus-ui";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import CustomRadialChart from "components/CustomRadialChart";
-import { readableNameConverter } from "shared/helper";
 import endpoints from "constants/endpoints";
 import sendGetRequest from "api/sendRequest";
-import { descriptionMapping } from "shared/job";
 import VerticalTabs from "./VerticalTabs";
 import useStyles from "./styles";
 
@@ -109,24 +106,6 @@ const DataTable = ({
   }, []);
   return (
     <>
-      <Typography
-        variant="h3"
-        component="h2"
-        align="center"
-        className={classes.topMargin}
-      >
-        {readableNameConverter(tableName) ||
-          readableNameConverter(pipelineName)}
-      </Typography>
-      <Typography
-        variant="subtitle1"
-        component="h3"
-        align="center"
-        className={classes.topMargin}
-      >
-        {descriptionMapping[tableName] || descriptionMapping[pipelineName]}
-      </Typography>
-      <br />
       {data && (
         <DataGrid
           rows={data}

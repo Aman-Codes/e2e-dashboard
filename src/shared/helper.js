@@ -3,6 +3,9 @@ import { formatDuration, intervalToDuration, formatDistance } from "date-fns";
 export const readableNameConverter = (name) => name?.replace(/-/g, " ");
 
 export const timeDifference = (startTime, endTime) => {
+  if (!startTime || !endTime) {
+    return "";
+  }
   const durations = intervalToDuration({
     start: new Date(startTime),
     end: new Date(endTime),
@@ -11,6 +14,9 @@ export const timeDifference = (startTime, endTime) => {
 };
 
 export const timeDifferenceStrict = (startTime, endTime) => {
+  if (!startTime || !endTime) {
+    return "";
+  }
   return formatDistance(new Date(startTime), new Date(endTime)) || "0 second";
 };
 

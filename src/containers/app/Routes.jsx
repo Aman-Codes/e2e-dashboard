@@ -5,8 +5,7 @@ import SuspenseLoader from "components/SuspenseLoader";
 
 const ErrorPage = lazy(() => import("pages/ErrorPage"));
 const HomePage = lazy(() => import("pages/HomePage"));
-const NightlyRuns = lazy(() => import("pages/NightlyRuns"));
-const ManualRuns = lazy(() => import("pages/ManualRuns"));
+const WorkflowPage = lazy(() => import("pages/WorkflowPage"));
 
 const Routes = () => (
   <Scaffold>
@@ -15,13 +14,8 @@ const Routes = () => (
         <Route exact path="/" render={(props) => <HomePage {...props} />} />
         <Route
           exact
-          path="/manual-runs"
-          render={(props) => <ManualRuns {...props} />}
-        />
-        <Route
-          exact
-          path="/nightly-runs"
-          render={(props) => <NightlyRuns {...props} />}
+          path="/workflows"
+          render={(props) => <WorkflowPage {...props} />}
         />
         <Route exact path="/404" component={ErrorPage} />
         <Redirect to="/404" />

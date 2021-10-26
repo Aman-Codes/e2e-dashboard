@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CustomCard = ({ data, category }) => {
+const CustomCard = ({ data }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const d = new Date();
@@ -61,7 +61,7 @@ const CustomCard = ({ data, category }) => {
         <PlayCircleFilled />
         <Link
           to={{
-            pathname: `/${category}`,
+            pathname: "/workflows",
             state: { id: data?.id, readableName: data?.readableName },
           }}
           style={{ marginLeft: 0 }}
