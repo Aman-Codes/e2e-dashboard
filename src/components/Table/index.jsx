@@ -6,6 +6,7 @@ import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import CustomRadialChart from "components/CustomRadialChart";
 import endpoints from "constants/endpoints";
 import sendGetRequest from "api/sendRequest";
+import { getLocalStorage } from "shared/storageHelper";
 import VerticalTabs from "./VerticalTabs";
 import useStyles from "./styles";
 
@@ -14,6 +15,7 @@ const DataTable = ({
   tableName,
   match: { params: { pipelineName } = {} } = {},
   displayVersion = true,
+  displayPipelineName = false,
 }) => {
   const [pageSize, setPageSize] = useState(10);
   const [pipelineDetails, setPipelineDetails] = useState(null);
@@ -35,6 +37,16 @@ const DataTable = ({
       setPipelineDetails({ pipelineId, jobs: response });
       setDisplayDrawer(true);
     });
+  };
+  const updateCommit = () => {
+    const litmusGoCommits = getLocalStorage("litmusGoCommits");
+    for (let i = 0; i < data.length; ++i) {
+      // eslint-disable-next-line no-param-reassign
+      data[i].litmusGoCommits = {
+        html_url: litmusGoCommits?.[i]?.html_url,
+        sha: litmusGoCommits?.[i]?.sha,
+      };
+    }
   };
   const columns = [
     {
@@ -59,15 +71,17 @@ const DataTable = ({
         `${formatDistanceToNowStrict(new Date(params.value))} ago`,
     },
     {
-      field: "head_commit",
+      field: "litmusGoCommits",
       headerName: "Description",
       flex: 1,
       renderCell: (params) => (
         <>
           <a
-            href={`https://github.com/litmuschaos/${githubRepo}/commit/${params.value.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            href={params.value?.html_url}
           >
-            {`#${params.value.id.substring(0, 6)}`}
+            {`#${params.value.sha.substring(0, 6)}`}
           </a>{" "}
           &nbsp; {t("table.repository")}: {githubRepo}
         </>
@@ -80,6 +94,15 @@ const DataTable = ({
             headerName: "Version",
             flex: 1,
             renderCell: () => "ci",
+          },
+        ]
+      : []),
+    ...(displayPipelineName
+      ? [
+          {
+            field: "name",
+            headerName: "Pipeline Name",
+            flex: 1,
           },
         ]
       : []),
@@ -103,6 +126,7 @@ const DataTable = ({
     ) {
       setGithubRepo("litmus");
     }
+    updateCommit();
   }, []);
   return (
     <>

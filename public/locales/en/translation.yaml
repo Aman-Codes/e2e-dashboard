@@ -32,3 +32,5 @@ homepage:
 pipelinePage:
   pipelineName: Pipeline Name
   selectPipeline: Select Pipeline
+  allWorkflows: All Workflows
+  allWorkflowsDesc: List of recent worklows runs

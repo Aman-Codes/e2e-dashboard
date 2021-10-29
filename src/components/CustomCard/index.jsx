@@ -12,6 +12,11 @@ import Chip from "@material-ui/core/Chip";
 import { Icon } from "litmus-ui";
 import { Link } from "react-router-dom";
 import { timeDifferenceStrict } from "shared/helper";
+import { conclusionMap } from "shared/job";
+import { ReactComponent as FailedIcon } from "svg/Failed.svg";
+import { ReactComponent as PassedIcon } from "svg/Passed.svg";
+import { ReactComponent as PendingIcon } from "svg/Pending.svg";
+import { ReactComponent as SkippedIcon } from "svg/Skipped.svg";
 
 const useStyles = makeStyles({
   root: {
@@ -40,17 +45,34 @@ const useStyles = makeStyles({
   img: {
     height: "1.2rem",
   },
+  icon: {
+    marginBottom: "-0.3rem",
+  },
 });
 
-const CustomCard = ({ data }) => {
+const statusBadge = (step) => {
+  const classes = useStyles();
+  if (step?.status !== "completed") {
+    return <PendingIcon className={classes.icon} />;
+  }
+  if (conclusionMap[step?.conclusion] === "pass") {
+    return <PassedIcon className={classes.icon} />;
+  }
+  if (conclusionMap[step?.conclusion] === "fail") {
+    return <FailedIcon className={classes.icon} />;
+  }
+
+  return <SkippedIcon className={classes.icon} />;
+};
+
+const CustomCard = ({ data, url }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent className={classes.p0}>
         <Typography className={classes.title} gutterBottom>
-          <PlayCircleFilled style={{ marginBottom: "-0.3rem" }} />
-          {data?.readableName}
+          {statusBadge(data?.workflow_runs)} {data?.readableName}
         </Typography>
         <Icon name="scheduleWorkflow" size="lg" color="black" />{" "}
         {`${timeDifferenceStrict(
@@ -59,20 +81,12 @@ const CustomCard = ({ data }) => {
         )} ago`}
         <br /> <br />
         <Chip label="litmuschaos/litmus-e2e" color="primary" />
-        <br /> <br />
-        <div className={classes.flex}>
-          <img
-            src={data?.badge_url}
-            className={classes.img}
-            alt="status of pipeline"
-          />
-        </div>
       </CardContent>
       <CardActions>
         <PlayCircleFilled />
         <Link
           to={{
-            pathname: "/workflows",
+            pathname: url || "/workflows",
             state: { id: data?.id, readableName: data?.readableName },
           }}
           style={{ marginLeft: 0 }}

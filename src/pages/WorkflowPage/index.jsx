@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const WorkflowPage = ({
   location,
+  pipelineData,
   match: { params: { pipelineName } = {} } = {},
 }) => {
   const classes = useStyles();
@@ -44,9 +45,9 @@ const WorkflowPage = ({
     id: location?.state?.id || "",
     readableName: location?.state?.readableName || "",
   });
-  const [pipelineData, setPipelineData] = useState(null);
-  const manualData = getLocalStorage("manualRuns");
-  const nightlyData = getLocalStorage("nightlyRuns");
+  const [workflowData, setWorkflowData] = useState(null);
+  const manualData = pipelineData?.manual || getLocalStorage("manualRuns");
+  const nightlyData = pipelineData?.nightly || getLocalStorage("nightlyRuns");
   const allData = [...manualData, ...nightlyData];
   const handleChange = (event) => {
     setSelectedPipeline({
@@ -71,7 +72,7 @@ const WorkflowPage = ({
             );
           });
           Promise.all(promiseList).then(() => {
-            setPipelineData(pipelines);
+            setWorkflowData(pipelines);
           });
         }
       );
@@ -141,10 +142,10 @@ const WorkflowPage = ({
           </div>
         )}
       </div>
-      {selectedPipeline.id && pipelineData && (
+      {selectedPipeline.id && workflowData && (
         <Table
           tableName={selectedPipeline.readableName}
-          data={pipelineData}
+          data={workflowData}
           displayVersion={false}
         />
       )}
